@@ -1,0 +1,23 @@
+name: E2E Test
+
+on: [push, pull_request]
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Check out code
+          uses: actions/checkout@v2
+
+        - name: Set up Elixir
+          uses: actions/setup-elixir@v1
+          with:
+            elixir-version: 1.16
+            otp-version: 26.0
+
+        - name: Install Dependencies
+          run: mix deps.get
+
+        - name: Run E2E test
+          run: mix test test/escheduler_test.exs
