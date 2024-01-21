@@ -2,13 +2,15 @@ defmodule Escheduler.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :escheduler,
+    [
+     app: :escheduler,
      version: "0.0.1",
-     elixir: "~> 1.2",
+     elixir: "~> 1.16",
      escript: [main_module: Escheduler],
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps]
+     deps: deps()
+    ]
   end
 
   # Configuration for the OTP application
@@ -29,9 +31,9 @@ defmodule Escheduler.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:poison, "~> 2.0"},
-      {:httpoison, "~> 0.8.3"},
-      {:credo, "~> 0.4", only: [:dev, :test]},
+      {:poison, "~> 5.0"},
+      {:httpoison, "~> 2.0"},
+      {:credo, "~> 1.7.3", only: [:dev, :test]},
     ]
   end
 end

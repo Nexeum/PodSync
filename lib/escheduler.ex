@@ -3,7 +3,7 @@ defmodule Escheduler do
   @name "escheduler"
 
   def main(_args) do
-    unscheduled_pods
+    unscheduled_pods()
     |> schedule
   end
 
@@ -27,17 +27,17 @@ defmodule Escheduler do
   end
 
   def bind(pod_name, node_name) do
-    url = "http://127.0.0.1:8001/api/v1/namespaces/default/pods/#{pod}/binding"
+    url = "http://127.0.0.1:8001/api/v1/namespaces/default/pods/#{pod_name}/binding"
     payload = %{
-      "apiVersion": "v1",
-      "kind": "Binding",
-      "metadata": %{
-        "name": pod_name,
+      apiVersion: "v1",
+      kind: "Binding",
+      metadata: %{
+        name: pod_name,
       },
-      "target": %{
-        "apiVersion": "v1",
-        "kind": "Node",
-        "name": node_name,
+      target: %{
+        apiVersion: "v1",
+        kind: "Node",
+        name: node_name,
       }
     }
     headers = [{'content-type', 'application/json'}]
@@ -48,6 +48,6 @@ defmodule Escheduler do
 
   def schedule(pods) do
     pods
-    |> Enum.each(&(bind(&1, Enum.random(nodes))))
+    |> Enum.each(&(bind(&1, Enum.random(nodes()))))
   end
 end
